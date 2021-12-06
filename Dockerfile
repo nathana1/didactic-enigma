@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM ghcr.io/deislabs/ratify:v0.1.0-alpha.1
+FROM ghcr.io/deislabs/ratify:v0.1.1-alpha.1
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
