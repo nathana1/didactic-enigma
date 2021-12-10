@@ -6,7 +6,7 @@ jq --arg cert "$1" '.verifiers.plugins as $plugins | .verifiers.plugins[$plugins
 output=$(/app/ratify verify -s "$2")
 echo "::set-output name=verification::$output"
 success=$(echo $output | jq '.isSuccess')
-if [ $success = 'true']
+if [ $success = 'true' ]
 then
     exit 0
 fi
