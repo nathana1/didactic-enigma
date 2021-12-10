@@ -1,11 +1,7 @@
 # action.yml
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Ratify action'
+description: 'Verify given subject has a valid signature'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
   signing-cert:
     description: 'Certificate for signature verification'
     required: true
@@ -13,12 +9,11 @@ inputs:
     description: 'Subject of verification'
     required: true
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  verification: # id of output
+    description: 'Verification output'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
     - ${{ inputs.signing-cert }}
     - ${{ inputs.subject }}
