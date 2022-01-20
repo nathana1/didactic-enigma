@@ -2,7 +2,12 @@
 # exit on first error and prevent filename expansion
 set -euf
 
-jq --arg cert "$1" '.verifiers.plugins as $plugins | .verifiers.plugins[$plugins | map(.name == "notaryv2") | index(true)].verificationCerts[0] |= $cert' /config.json > /.ratify/config.json
+[ -f certfile ] && rm certfile
+for cert in $(echo $1 | tr "," "\n")
+do
+       echo  \"$cert\" >> certfile
+done
+jq --slurpfile cert certfile '.verifiers.plugins as $plugins | .verifiers.plugins[$plugins | map(.name == "notaryv2") | index(true)].verificationCerts |= $cert' /config.json > /.ratify/config.json
 output=$(/app/ratify verify -s "$2")
 echo "::set-output name=verification::$output"
 success=$(echo $output | jq '.isSuccess')

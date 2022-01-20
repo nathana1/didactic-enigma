@@ -22,7 +22,7 @@
             {
                 "name":"notaryv2",
                 "artifactTypes" : "application/vnd.cncf.notary.v2.signature",
-                "verificationCerts": []
+                "verificationCerts": null
             },
             {
                 "name":"sbom",
