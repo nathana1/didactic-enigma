@@ -2,6 +2,7 @@
 An action to run [Ratify](https://github.com/deislabs/ratify) on specified images.
 
 ## Usage
+Ratify requires a signing certificate and a subject image reference.  Certificates must be present in the action workspace.  The following example shows how to do this by either checking the certificate into the repository or storing it as a Github secret.
 ``` yaml
 jobs:
   ratify_job:
@@ -12,13 +13,19 @@ jobs:
       - name: checkout repo
         id: checkout
         uses: actions/checkout@v2
+      - shell: bash
+        env:
+          SIGNING_CERT: ${{ secrets.SIGNING_CERT }}
+        run: |
+          echo "$SIGNING_CERT" > cert2.crt
       # use docker/login-action@v1 if necessary
       - name: Ratify verification step
         id: ratify
-        uses: nathana1/didactic-enigma@v0.2.4
+        uses: nathana1/didactic-enigma@v0.3.0
         with:
+          # comma delimited list of signing certificates
           # path relative to action working directory
-          signing-cert: '<my-signing-key>.crt'
+          signing-cert: '<my-signing-key>.crt,cert2.crt'
           subject: '<myregistry>/<my-image>'
       - name: Get verification results
         run: echo "Verification results are ${{ steps.ratify.outputs.verification }}"
