@@ -18,7 +18,6 @@ jobs:
           SIGNING_CERT: ${{ secrets.SIGNING_CERT }}
         run: |
           echo "$SIGNING_CERT" > cert2.crt
-      # use docker/login-action@v1 if necessary
       - name: Ratify verification step
         id: ratify
         uses: nathana1/didactic-enigma@v0.3.0
