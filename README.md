@@ -24,7 +24,7 @@ jobs:
         with:
           # comma delimited list of signing certificates
           # path relative to action working directory
-          signing-cert: '<my-signing-key>.crt,cert2.crt'
+          verification-certs: '<my-signing-key>.crt,cert2.crt'
           subject: '<myregistry>/<my-image>'
       - name: Get verification results
         run: echo "Verification results are ${{ steps.ratify.outputs.verification }}"
